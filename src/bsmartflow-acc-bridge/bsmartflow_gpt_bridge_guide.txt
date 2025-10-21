@@ -1,0 +1,89 @@
+﻿=====================================================
+📘 BsmartFlow GPT Bridge - Integration & Operations Guide
+=====================================================
+
+🔹 Author: Bhavani Prasad
+🔹 System: BsmartFlow Automation Platform
+🔹 Environment: Google Cloud Run (asia-south1)
+🔹 Project ID: bsmartflow-474718
+🔹 Services:
+   - ACC: https://bsmartflow-acc-csrkdzkynq-el.a.run.app
+   - Bridge: https://bsmartflow-acc-bridge-csrkdzkynq-el.a.run.app
+🔹 Service Account:
+   - bsmartflow-acc-bridge@bsmartflow-474718.iam.gserviceaccount.com
+
+-----------------------------------------------------
+🎯 Purpose
+-----------------------------------------------------
+This document describes how the Custom GPT (BsmartFlow Bridge GPT)
+communicates securely with the Google Cloud Run Bridge service
+to execute commands, check system health, and route ACC requests.
+
+-----------------------------------------------------
+⚙️ Endpoints
+-----------------------------------------------------
+1. /health
+   - Method: GET
+   - Purpose: Validate service health
+   - Response:
+     {
+       "status": "ok",
+       "service": "Bridge"
+     }
+
+2. /execute_task
+   - Method: POST
+   - Purpose: Relay commands from GPT or ACC
+   - Request Body:
+     {
+       "ping": "bridge_health_test"
+     }
+   - Response:
+     {
+       "bridge_request": { "ping": "bridge_health_test" },
+       "response": "Bridge task executed successfully",
+       "source": "Bridge"
+     }
+
+-----------------------------------------------------
+🔐 Authentication
+-----------------------------------------------------
+- Type: Bearer (JWT)
+- Token Source:
+  gcloud auth print-identity-token --impersonate-service-account=bsmartflow-acc-bridge@bsmartflow-474718.iam.gserviceaccount.com
+- Token Lifetime: 1 hour
+- Must be refreshed using PowerShell script:
+  refresh_bridge_token.ps1
+
+-----------------------------------------------------
+🧠 GPT Responsibilities
+-----------------------------------------------------
+✅ Do:
+- Relay requests between ACC, Bridge, and Cloud Services
+- Perform system status checks
+- Confirm successful operations via JSON output
+
+🚫 Don’t:
+- Expose or store tokens
+- Modify deployment configurations
+- Access services outside bsmartflow-474718 project
+
+-----------------------------------------------------
+🩺 Maintenance Scripts
+-----------------------------------------------------
+1. auto_heal_acc_bridge_final.ps1
+   - Validates and repairs IAM, redeploys Bridge if unhealthy.
+
+2. refresh_bridge_token.ps1
+   - Generates valid bearer token for ChatGPT-Google Cloud authentication.
+
+-----------------------------------------------------
+📅 Update Schedule
+-----------------------------------------------------
+- Token refresh: Every 60 minutes
+- Bridge auto-heal: Every 6 hours
+- Deployment verification: Weekly (Sunday 2 AM IST)
+
+-----------------------------------------------------
+© BsmartFlow Systems | Managed by Bhavani Prasad
+=====================================================

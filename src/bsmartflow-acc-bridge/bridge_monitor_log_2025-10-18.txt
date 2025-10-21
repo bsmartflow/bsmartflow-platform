@@ -1,0 +1,8 @@
+
+[2025-10-18 13:20:42Z] ? Monitor started
+[AUTH] admin@bsmartflow.com
+[ACC] FAIL
+[Bridge] FAIL
+[TOKEN] Refreshed at 2025-10-18 13:20:49Z
+[AUTOHEAL] Bridge recovered
+[LOOP] Next cycle 15m

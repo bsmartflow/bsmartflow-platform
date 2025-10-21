@@ -1,0 +1,13 @@
+[INIT] Started at 18-10-2025 10:05:11.05 
+[10:05:11.59] IAM fix triggered (403) 
+Updated IAM policy for service [bsmartflow-acc].
+bindings:
+- members:
+  - serviceAccount:bsmartflow-474718@appspot.gserviceaccount.com
+  - serviceAccount:bsmartflow-acc-bridge@bsmartflow-474718.iam.gserviceaccount.com
+  - serviceAccount:bsmartflow-smartbox-ui-sa@bsmartflow-474718.iam.gserviceaccount.com
+  - serviceAccount:smartbox-ui-sa@bsmartflow-474718.iam.gserviceaccount.com
+  - user:admin@bsmartflow.com
+  role: roles/run.invoker
+etag: BwZBZ2B3Mps=
+version: 1

@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      [
+        'run', 'deploy', 'bsmartflow-acc',
+        '--source=.',
+        '--project=bsmartflow-474718',
+        '--region=asia-south1',
+        '--memory=1Gi',
+        '--timeout=600s',
+        '--clear-base-image',
+        '--no-allow-unauthenticated',
+        '--startup-cpu-boost',
+        '--liveness-probe-path=/_internal/live',
+        '--startup-probe-path=/'
+      ]
+timeout: '1200s'
+options:
+  logging: CLOUD_LOGGING_ONLY
