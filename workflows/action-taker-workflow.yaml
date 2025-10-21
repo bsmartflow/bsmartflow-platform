@@ -1,0 +1,10 @@
+main:
+  params: [event]
+  steps:
+    - init: {assign: [{projectId: "bsmartflow-474718"}, {command: }]}
+    - write_task_to_firestore:
+        call: googleapis.firestore.v1.projects.databases.documents.patch
+        args:
+          name: 
+          body: {fields: {intent: {stringValue: }, task_name: {stringValue: }, due_date: {stringValue: }}}
+    - return_success: {return: "SUCCESS"}
